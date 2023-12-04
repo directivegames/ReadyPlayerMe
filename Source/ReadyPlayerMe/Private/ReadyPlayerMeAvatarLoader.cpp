@@ -83,7 +83,11 @@ void UReadyPlayerMeAvatarLoader::ProcessReceivedMetadata()
 	}
 	// If we are trying to update the avatar, but the metadata is not changed, we loaded the cached avatar.
 	OnGlbLoadCompleted.BindDynamic(this, &UReadyPlayerMeAvatarLoader::OnGlbLoaded);
+#if 1 // WITH_DIRECTIVE
+	GlbLoader->LoadFromFile(this, AvatarUri->LocalModelPath, AvatarMetadata->BodyType, OnGlbLoadCompleted);
+#else
 	GlbLoader->LoadFromFile(AvatarUri->LocalModelPath, AvatarMetadata->BodyType, OnGlbLoadCompleted);
+#endif
 }
 
 void UReadyPlayerMeAvatarLoader::ExecuteSuccessCallback()
@@ -108,7 +112,11 @@ void UReadyPlayerMeAvatarLoader::TryLoadFromCache()
 	if (AvatarMetadata.IsSet())
 	{
 		OnGlbLoadCompleted.BindDynamic(this, &UReadyPlayerMeAvatarLoader::OnGlbLoaded);
+#if 1 // WITH_DIRECTIVE
+		GlbLoader->LoadFromFile(this, AvatarUri->LocalModelPath, AvatarMetadata->BodyType, OnGlbLoadCompleted);
+#else
 		GlbLoader->LoadFromFile(AvatarUri->LocalModelPath, AvatarMetadata->BodyType, OnGlbLoadCompleted);
+#endif
 	}
 	else
 	{
@@ -171,7 +179,11 @@ void UReadyPlayerMeAvatarLoader::OnModelDownloaded(bool bSuccess)
 		CacheHandler->SetModelData(&ModelRequest->GetContent());
 		const EAvatarBodyType BodyType = AvatarMetadata ? AvatarMetadata->BodyType : EAvatarBodyType::Undefined;
 		OnGlbLoadCompleted.BindDynamic(this, &UReadyPlayerMeAvatarLoader::OnGlbLoaded);
+#if 1 // WITH_DIRECTIVE
+		GlbLoader->LoadFromData(this, ModelRequest->GetContent(), BodyType, OnGlbLoadCompleted);
+#else
 		GlbLoader->LoadFromData(ModelRequest->GetContent(), BodyType, OnGlbLoadCompleted);
+#endif
 	}
 	else if (bIsTryingToUpdate)
 	{
