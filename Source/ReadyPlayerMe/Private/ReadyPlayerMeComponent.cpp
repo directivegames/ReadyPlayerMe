@@ -7,7 +7,7 @@
 #include "glTFRuntimeAsset.h"
 #include "UObject/UObjectGlobals.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "Media/Public/IMediaTracks.h"
+#include "IMediaTracks.h"
 
 UReadyPlayerMeComponent::UReadyPlayerMeComponent()
 	: TargetSkeleton(nullptr)

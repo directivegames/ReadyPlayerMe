@@ -43,8 +43,11 @@ public class ReadyPlayerMe : ModuleRules
 				"JsonUtilities",
 				"HTTP",
 				"Projects",
+#if true // WITH_DIRECTIVE
+				"Media",
+#endif
 				"DeveloperSettings"
-			}
+            }
 			);
 
 		DynamicallyLoadedModuleNames.AddRange(
